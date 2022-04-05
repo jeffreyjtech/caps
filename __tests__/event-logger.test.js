@@ -6,13 +6,11 @@ const chance = new Chance();
 
 const eventLogger = require('../lib/event-logger.js');
 
-
 // Mock objects and spy functions
 console.log = jest.fn();
 // jest.spyOn(console, 'log');
 
 describe('Testing event logger', () => {
-  
 
   test('Checking logger logs an event with eventName and payload', () => {
     // `EVENT:\n ${eventName}:\n ${timestamp},\n ${payload}`
