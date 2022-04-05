@@ -4,11 +4,11 @@ const crypto = require('crypto');
 const Chance = require('chance');
 const chance = new Chance();
 
-const eventPool = require('../hub');
+const eventPool = require('../event-pool');
 const { pickupEmitter, deliveredListener } = require('../lib/vendor');
 
 // Mock objects and spy functions
-jest.mock('../hub.js', () => {
+jest.mock('../event-pool', () => {
   return {
     on: jest.fn(),
     emit: jest.fn(),
@@ -16,7 +16,7 @@ jest.mock('../hub.js', () => {
 });
 console.log = jest.fn();
 
-describe('Vendor client app tests', () => {
+describe('Testing vendor client app', () => {
 
   test('Vendor client app emits PICKUP event with payload', () => {
     let testPayload = chance.company();
