@@ -4,17 +4,16 @@ const Chance = require('chance');
 const chance = new Chance();
 
 const eventPool = require('./event-pool');
-const logEvent = require('./lib/event-logger');
+const addLogger = require('./lib/event-logger');
 const { handlePickup } = require('./lib/driver');
 const { pickupEmitter, deliveredListener } = require('./lib/vendor');
 
-eventPool.on('PICKUP', (payload) => logEvent(payload, 'PICKUP'));
-eventPool.on('IN-TRANSIT', (payload) => logEvent(payload, 'IN-TRANSIT'));
-eventPool.on('DELIVERED', (payload) => logEvent(payload, 'DELIVERED'));
+addLogger(eventPool, 'PICKUP');
+addLogger(eventPool, 'IN-TRANSIT');
+addLogger(eventPool, 'DELIVERED');
 
 eventPool.on('PICKUP', handlePickup);
 eventPool.on('DELIVERED', deliveredListener);
-
 
 setInterval(() => {
   let randomStore = chance.company();
