@@ -2,7 +2,7 @@
 
 A real-time service that allows for vendors, such as flower shops or restaurants, to alert a system of a package needing to be delivered, for drivers to instantly see what’s in their pickup queue, and then to alert the vendors as to the state of the deliveries (in transit, and then delivered).
 
-This application has no outward features our routes. It currently has no function when deployed.
+This application has no outward features or routes. It currently has no function when deployed.
 
 [**Deployed API**](https://jjtech-caps.herokuapp.com/)
 
@@ -25,4 +25,4 @@ After installation, run `npm start`.
 
 ## Features / Routes
 
-As stated in the overview, this application has no outward features our routes, and it has no function when deployed.
+As stated in the overview, this application has no outward features or routes, and it has no function when deployed.
