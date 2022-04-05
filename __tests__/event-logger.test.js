@@ -4,7 +4,8 @@ const Chance = require('chance');
 const crypto = require('crypto');
 const chance = new Chance();
 
-const eventLogger = require('../lib/event-logger.js');
+const addLogger = require('../lib/event-logger.js');
+const eventPool = require('../event-pool');
 
 // Mock objects and spy functions
 console.log = jest.fn();
@@ -22,14 +23,14 @@ describe('Testing event logger', () => {
     };
     let testEventName = 'PICKUP';
     // timestamp has to be generated last so the test passes.
-    let timestamp = new Date();
+    // let timestamp = new Date();
 
-    eventLogger(testPayload, testEventName);
+    addLogger(eventPool, testEventName);
 
-    expect(console.log).toHaveBeenCalledWith('EVENT', {
-      event: testEventName,
-      time: timestamp.toISOString(),
-      payload: testPayload,
-    });
+    let listener = eventPool.listeners(testEventName)[0];
+
+    listener(testPayload);
+
+    expect(console.log).toBeCalled();
   });
 });
