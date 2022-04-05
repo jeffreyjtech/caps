@@ -1,21 +1,18 @@
 'use strict';
 
-const eventLogger = require('../lib/event-logger.js');
 const Chance = require('chance');
 const crypto = require('crypto');
-
 const chance = new Chance();
 
-jest.mock('../hub.js', () => {
-  return {
-    on: jest.fn(),
-    emit: jest.fn(),
-  };
-});
+const eventLogger = require('../lib/event-logger.js');
+
+
+// Mock objects and spy functions
+console.log = jest.fn();
+// jest.spyOn(console, 'log');
 
 describe('Testing event logger', () => {
   
-  jest.spyOn(console, 'log');
 
   test('Checking that it logs an event with eventName and payload', () => {
     // `EVENT:\n ${eventName}:\n ${timestamp},\n ${payload}`
