@@ -1,6 +1,5 @@
 'use strict';
 
-const crypto = require('crypto');
 const Chance = require('chance');
 const chance = new Chance();
 
