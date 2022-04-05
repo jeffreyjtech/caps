@@ -40,6 +40,6 @@ describe('Vendor client app tests', () => {
 
     deliveredListener({ customer: testCustomer });
 
-    expect(console.log).toHaveBeenCalledWith(testCustomer);
+    expect(console.log).toHaveBeenCalledWith('Thank you',testCustomer);
   });
 });
