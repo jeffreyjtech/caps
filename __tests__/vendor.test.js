@@ -21,18 +21,16 @@ describe('Testing vendor client app', () => {
   test('Vendor client app emits PICKUP event with payload', () => {
     let testPayload = chance.company();
 
-    process.env.TEST_orderID = crypto.randomUUID();
-    process.env.TEST_customer = chance.name();
-    process.env.TEST_address = chance.address();
-
     pickupEmitter(testPayload);
 
-    expect(eventPool.emit).toHaveBeenCalledWith('PICKUP', {
-      store: testPayload,
-      orderID: process.env.TEST_orderID,
-      customer: process.env.TEST_customer,
-      address: process.env.TEST_address,
-    });
+    expect(eventPool.emit).toHaveBeenCalledWith('PICKUP', 
+      expect.objectContaining({
+        store: testPayload,
+        orderID: expect.anything(),
+        customer: expect.anything(),
+        address: expect.anything(),
+      }),
+    );
   });
 
   test('Vendor client app listens for DELIVERED and logs customer', () => {
