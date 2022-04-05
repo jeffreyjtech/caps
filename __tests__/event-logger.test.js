@@ -14,7 +14,7 @@ console.log = jest.fn();
 describe('Testing event logger', () => {
   
 
-  test('Checking that it logs an event with eventName and payload', () => {
+  test('Checking logger logs an event with eventName and payload', () => {
     // `EVENT:\n ${eventName}:\n ${timestamp},\n ${payload}`
     let testPayload = {
       store: chance.company(),
@@ -26,16 +26,12 @@ describe('Testing event logger', () => {
     // timestamp has to be generated last so the test passes.
     let timestamp = new Date();
 
-    let printObject = {
-      EVENT:{
-        event: testEventName,
-        time: timestamp.toISOString(),
-        payload: testPayload,
-      },
-    };
-
     eventLogger(testPayload, testEventName);
 
-    expect(console.log).toHaveBeenCalledWith(printObject);
+    expect(console.log).toHaveBeenCalledWith('EVENT', {
+      event: testEventName,
+      time: timestamp.toISOString(),
+      payload: testPayload,
+    });
   });
 });
