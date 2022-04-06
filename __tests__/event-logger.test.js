@@ -1,37 +1,39 @@
 'use strict';
 
-const Chance = require('chance');
-const crypto = require('crypto');
-const chance = new Chance();
-
-const eventLogger = require('../lib/event-logger.js');
-
+const addLogger = require('../lib/event-logger.js');
+const eventPool = require('../event-pool');
 
 // Mock objects and spy functions
+jest.mock('../event-pool', () => {
+  return {
+    on: jest.fn(),
+    emit: jest.fn(),
+  };
+});
 console.log = jest.fn();
 // jest.spyOn(console, 'log');
 
 describe('Testing event logger', () => {
-  
 
   test('Checking logger logs an event with eventName and payload', () => {
-    // `EVENT:\n ${eventName}:\n ${timestamp},\n ${payload}`
     let testPayload = {
-      store: chance.company(),
-      orderID: crypto.randomUUID(),
-      customer: chance.name(),
-      address: chance.address(),
+      nothing: 'in-particular',
     };
     let testEventName = 'PICKUP';
-    // timestamp has to be generated last so the test passes.
-    let timestamp = new Date();
+    addLogger(eventPool, testEventName);
 
-    eventLogger(testPayload, testEventName);
+    // The next line stores the arguments when eventPool.on() was called
+    // .mock is the mock property provided by jest, which then has a .calls property which is an array
+    // the .calls array contains sub-arrays of each argument for each call of .on()
+    let mockCallArgs = eventPool.on.mock.calls[0];
 
-    expect(console.log).toHaveBeenCalledWith('EVENT', {
-      event: testEventName,
-      time: timestamp.toISOString(),
-      payload: testPayload,
-    });
+    // This finds the callback so we can test it
+    let loggerCallback = mockCallArgs.find((argument) => typeof argument === 'function');
+
+    // Then we execute the callback to see that it calls console.log in some capacity
+    loggerCallback(testPayload);
+    expect(console.log).toBeCalled();
+    // Finally we test that 'PICKUP' was also among the arguments
+    expect(mockCallArgs.find((argument) => argument === testEventName)).toBeTruthy();
   });
 });
