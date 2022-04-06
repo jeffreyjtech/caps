@@ -18,18 +18,18 @@ let pickupEmitter = (socket) => (storeName) => {
 };
 
 let deliveredListener = (socket) => {
-  socket.on('DELIVERED', (payload) => console.log('Thank you', payload.customer));
+  socket.on('DELIVERED', (payload) => {
+    console.log('Thank you', payload.customer);
+    process.exit();
+  });
+  
 };
 
-let randomStore = chance.company();
+let randomStoreName = chance.company();
 
-pickupEmitter(socket)(randomStore);
+socket.emit('JOIN', randomStoreName);
+pickupEmitter(socket)(randomStoreName);
 deliveredListener(socket);
-
-setInterval(() => {
-  let randomStore = chance.company();
-  pickupEmitter(socket)(randomStore);
-}, 3000);
 
 module.exports = {
   pickupEmitter,
