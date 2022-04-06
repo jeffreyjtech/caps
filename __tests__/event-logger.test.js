@@ -1,9 +1,5 @@
 'use strict';
 
-const Chance = require('chance');
-const crypto = require('crypto');
-const chance = new Chance();
-
 const addLogger = require('../lib/event-logger.js');
 const eventPool = require('../event-pool');
 
@@ -21,10 +17,7 @@ describe('Testing event logger', () => {
 
   test('Checking logger logs an event with eventName and payload', () => {
     let testPayload = {
-      store: chance.company(),
-      orderID: crypto.randomUUID(),
-      customer: chance.name(),
-      address: chance.address(),
+      nothing: 'in-particular',
     };
     let testEventName = 'PICKUP';
     addLogger(eventPool, testEventName);
