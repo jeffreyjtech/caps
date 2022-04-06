@@ -6,8 +6,6 @@ This application has no outward features or routes. It currently has no function
 
 [**Deployed API**](https://jjtech-caps.herokuapp.com/)
 
-![My UML diagram](./assets/lab-11-uml.jpg)
-
 ## Installation
 
 1. Clone from this repo `git clone https://github.com/jeffreyjtech/caps.git`
@@ -26,3 +24,7 @@ After installation, run `npm start`.
 ## Features / Routes
 
 As stated in the overview, this application has no outward features or routes, and it has no function when deployed.
+
+## Old UML Diagrams
+
+![Lab 11 UML diagram](./assets/lab-11-uml.jpg)
