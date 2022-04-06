@@ -26,6 +26,11 @@ let randomStore = chance.company();
 pickupEmitter(socket)(randomStore);
 deliveredListener(socket);
 
+setInterval(() => {
+  let randomStore = chance.company();
+  pickupEmitter(socket)(randomStore);
+}, 3000);
+
 module.exports = {
   pickupEmitter,
   deliveredListener,
