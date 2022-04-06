@@ -32,15 +32,15 @@ describe('Testing event logger', () => {
     // The next line stores the arguments when eventPool.on() was called
     // .mock is the mock property provided by jest, which then has a .calls property which is an array
     // the .calls array contains sub-arrays of each argument for each call of .on()
-    let [ mockCall ] = eventPool.on.mock.calls;
+    let mockCallArgs = eventPool.on.mock.calls[0];
 
     // This finds the callback so we can test it
-    let loggerCallback = mockCall.find((argument) => typeof argument === 'function');
+    let loggerCallback = mockCallArgs.find((argument) => typeof argument === 'function');
 
     // Then we execute the callback to see that it calls console.log in some capacity
     loggerCallback(testPayload);
     expect(console.log).toBeCalled();
     // Finally we test that 'PICKUP' was also among the arguments
-    expect(mockCall.find((argument) => argument === testEventName)).toBeTruthy();
+    expect(mockCallArgs.find((argument) => argument === testEventName)).toBeTruthy();
   });
 });
