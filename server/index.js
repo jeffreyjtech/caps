@@ -11,9 +11,13 @@ const addLogger = require('./event-logger');
 
 caps.on('connection', socket => {
 
-  console.log('Poggers! Socket connected!', socket.id);
-
   addLogger(socket);
+
+  console.log('Poggers! Socket connected!', socket.id);
+  socket.on('JOIN', (vendorId) => {
+    console.log('Registering Vendor to room ', vendorId);
+    socket.join(vendorId);
+  });
 
   socket.on('PICKUP', (payload) => {
     console.log('Relaying PICKUP');
@@ -21,8 +25,8 @@ caps.on('connection', socket => {
   });
 
   socket.on('DELIVERED', (payload) => {
-    console.log('Relaying DELIVERED');
-    socket.broadcast.emit('DELIVERED', payload);
+    console.log('Relaying DELIVERED to room', payload.store);
+    socket.to(payload.store).emit('DELIVERED', payload);
   });
 });
 
