@@ -1,6 +1,6 @@
 'use strict';
 
-const addLogger = require('../lib/event-logger.js');
+const addLogger = require('../server/event-logger.js');
 const eventPool = require('../event-pool');
 
 // Mock objects and spy functions
