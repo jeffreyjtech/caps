@@ -20,7 +20,6 @@ console.log = jest.fn();
 describe('Testing event logger', () => {
 
   test('Checking logger logs an event with eventName and payload', () => {
-    // `EVENT:\n ${eventName}:\n ${timestamp},\n ${payload}`
     let testPayload = {
       store: chance.company(),
       orderID: crypto.randomUUID(),
