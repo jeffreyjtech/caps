@@ -4,9 +4,11 @@ A real-time service that allows for vendors, such as flower shops or restaurants
 
 This application has no outward features or routes. It currently has no function when deployed.
 
-## UML WIP
-
 [**Deployed API**](https://jjtech-caps.herokuapp.com/)
+
+## UML
+
+![Lab 12 UML diagram](./assets/lab-12-uml.jpg)
 
 ## Installation
 
