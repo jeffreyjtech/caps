@@ -1,10 +1,10 @@
 'use strict';
 
-module.exports = (socket, event) => {
-  socket.on(event, (payload) => {
+module.exports = (socket) => {
+  socket.onAny((eventName, payload) => {
     let timestamp = new Date();
     console.log('EVENT', {
-      event: event,
+      event: eventName,
       time: timestamp.toISOString(),
       payload,
     });
