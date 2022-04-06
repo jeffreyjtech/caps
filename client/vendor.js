@@ -17,19 +17,16 @@ let pickupEmitter = (socket) => (storeName) => {
   socket.emit('PICKUP', newOrderPayload);  
 };
 
-let deliveredListener = (socket) => {
-  socket.on('DELIVERED', (payload) => {
-    console.log('Thank you', payload.customer);
-    process.exit();
-  });
-  
+let deliveredListener = (payload) => {
+  console.log('Thank you', payload.customer);
+  if(process.env.NODE_ENV !== 'test') process.exit();
 };
 
 let randomStoreName = chance.company();
 
 socket.emit('JOIN', randomStoreName);
 pickupEmitter(socket)(randomStoreName);
-deliveredListener(socket);
+socket.on('DELIVERED', deliveredListener);
 
 module.exports = {
   pickupEmitter,
