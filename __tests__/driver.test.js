@@ -9,7 +9,6 @@ const socket = {
   emit: jest.fn(),
   on: jest.fn(),
 };
-
 // Even though we're only testing handlePickup, JavaScript will still try to compile the rest of the "driver" file
 // Hence we need to mock the socket.io-client dependency with a mock function called "io"
 jest.mock('socket.io-client', () => {
@@ -17,7 +16,6 @@ jest.mock('socket.io-client', () => {
     io: () => ({ emit: jest.fn(), on: jest.fn() }),
   };
 });
-
 console.log = jest.fn();
 
 describe('Testing driver client app', () => {
