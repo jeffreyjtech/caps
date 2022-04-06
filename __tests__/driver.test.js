@@ -2,14 +2,18 @@
 
 const crypto = require('crypto');
 
-const eventPool = require('../event-pool');
-const { handlePickup } = require('../lib/driver');
+const { handlePickup } = require('../client/driver');
 
 // Mock objects and spy functions
-jest.mock('../event-pool', () => {
+const socket = {
+  emit: jest.fn(),
+  on: jest.fn(),
+};
+// Even though we're only testing handlePickup, JavaScript will still try to compile the rest of the "driver" file
+// Hence we need to mock the socket.io-client dependency with a mock function called "io"
+jest.mock('socket.io-client', () => {
   return {
-    on: jest.fn(),
-    emit: jest.fn(),
+    io: () => ({ emit: jest.fn(), on: jest.fn() }),
   };
 });
 console.log = jest.fn();
@@ -20,12 +24,12 @@ describe('Testing driver client app', () => {
 
     let testPayload = { orderID: crypto.randomUUID() };
 
-    handlePickup(testPayload);
+    handlePickup(socket)(testPayload);
 
     expect(console.log).toHaveBeenNthCalledWith(1, 'DRIVER: picked up', testPayload.orderID);
-    expect(eventPool.emit).toHaveBeenNthCalledWith(1, 'IN-TRANSIT', testPayload);
+    expect(socket.emit).toHaveBeenNthCalledWith(1, 'IN-TRANSIT', testPayload);
     expect(console.log).toHaveBeenNthCalledWith(2, 'DRIVER: delivered', testPayload.orderID);
-    expect(eventPool.emit).toHaveBeenNthCalledWith(2, 'DELIVERED', testPayload);
+    expect(socket.emit).toHaveBeenNthCalledWith(2, 'DELIVERED', testPayload);
   });
 
 });

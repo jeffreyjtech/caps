@@ -3,14 +3,19 @@
 const Chance = require('chance');
 const chance = new Chance();
 
-const eventPool = require('../event-pool');
-const { pickupEmitter, deliveredListener } = require('../lib/vendor');
+const { pickupEmitter, deliveredListener } = require('../client/vendor');
+
 
 // Mock objects and spy functions
-jest.mock('../event-pool', () => {
+const socket = {
+  emit: jest.fn(),
+  on: jest.fn(),
+};
+// Even though we're only testing handlePickup, JavaScript will still try to compile the rest of the "driver" file
+// Hence we need to mock the socket.io-client dependency with a mock function called "io"
+jest.mock('socket.io-client', () => {
   return {
-    on: jest.fn(),
-    emit: jest.fn(),
+    io: () => ({ emit: jest.fn(), on: jest.fn() }),
   };
 });
 console.log = jest.fn();
@@ -18,13 +23,13 @@ console.log = jest.fn();
 describe('Testing vendor client app', () => {
 
   test('Vendor client app emits PICKUP event with payload', () => {
-    let testPayload = chance.company();
+    let testStoreName = 'Test store';
 
-    pickupEmitter(testPayload);
+    pickupEmitter(socket)(testStoreName);
 
-    expect(eventPool.emit).toHaveBeenCalledWith('PICKUP', 
+    expect(socket.emit).toHaveBeenCalledWith('PICKUP', 
       expect.objectContaining({
-        store: testPayload,
+        store: testStoreName,
         orderID: expect.anything(),
         customer: expect.anything(),
         address: expect.anything(),
@@ -33,10 +38,10 @@ describe('Testing vendor client app', () => {
   });
 
   test('Vendor client app listens for DELIVERED and logs customer', () => {
-    let testCustomer = chance.name();
+    let testPayload = { customer: chance.name()};
 
-    deliveredListener({ customer: testCustomer });
+    deliveredListener(testPayload);
 
-    expect(console.log).toHaveBeenCalledWith('Thank you',testCustomer);
+    expect(console.log).toHaveBeenCalledWith('Thank you',testPayload.customer);
   });
 });
