@@ -3,7 +3,7 @@
 const Chance = require('chance');
 const chance = new Chance();
 
-const { emitJoin, emitPickup, handleDelivered } = require('../client/vendor');
+const { emitJoin, emitPickup, handleDelivered } = require('../vendor');
 
 
 // Mock objects and spy functions

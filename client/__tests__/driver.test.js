@@ -2,7 +2,7 @@
 
 const crypto = require('crypto');
 
-const { handlePickup } = require('../client/driver');
+const { handlePickup } = require('../driver');
 
 // Mock objects and spy functions
 const socket = {
