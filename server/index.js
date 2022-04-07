@@ -45,7 +45,6 @@ caps.on('connection', socket => {
   });
 
   socket.on('received', (payload) => {
-    console.log('A dequeued payload has been acknowledged by a client');
     let eventQueue = globalQueue.read(payload.queueId);
 
     if(!eventQueue) throw new Error('Queue does not exist!');
@@ -57,14 +56,16 @@ caps.on('connection', socket => {
 
   socket.on('get-all', (payload) => {
     console.log('Getting all events in queueId: ', payload.queueId);
+
     let eventQueue = globalQueue.read(payload.queueId);
 
-    console.log(eventQueue);
-
-    eventQueue.readAllValues().forEach((payload) => {
-      console.log('Fetched payload', payload);
-      socket.emit(payload.eventName, payload);
-    });
+    if(!eventQueue) {
+      console.error('  No queue found for queueId: ', payload.queueId);
+    } else {
+      eventQueue.readAllValues().forEach((payload) => {
+        socket.emit(payload.eventName, payload);
+      });    
+    }
   });
 });
 
