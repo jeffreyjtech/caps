@@ -2,7 +2,7 @@
 
 const { io } = require('socket.io-client');
 
-const MessageClient = require('../lib/client');
+const MessageClient = require('../lib/Client');
 
 jest.mock('socket.io-client', () => {
   return {
