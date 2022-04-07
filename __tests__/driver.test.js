@@ -13,7 +13,7 @@ const socket = {
 // Hence we need to mock the socket.io-client dependency with a mock function called "io"
 jest.mock('socket.io-client', () => {
   return {
-    io: () => ({ emit: jest.fn(), on: jest.fn() }),
+    io: jest.fn(() => ({ emit: jest.fn(), on: jest.fn() })),
   };
 });
 console.log = jest.fn();
