@@ -1,11 +1,15 @@
 {
+  "dependencies": {
+    "jest": "^27.5.1",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1"
+  },
   "name": "caps",
-  "version": "1.0.0",
   "description": "A real-time service that allows for vendors, such as flower shops or restaurants, to alert a system of a package needing to be delivered, for drivers to instantly see what’s in their pickup queue, and then to alert the vendors as to the state of the deliveries (in transit, and then delivered).",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node hub",
-    "test": "jest --coverage --verbose"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -17,13 +21,5 @@
   "bugs": {
     "url": "https://github.com/jeffreyjtech/caps/issues"
   },
-  "homepage": "https://github.com/jeffreyjtech/caps#readme",
-  "dependencies": {
-    "chance": "^1.1.8",
-    "express": "^4.17.3",
-    "jest": "^27.5.1",
-    "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1",
-    "supergoose": "^0.2.6"
-  }
+  "homepage": "https://github.com/jeffreyjtech/caps#readme"
 }
