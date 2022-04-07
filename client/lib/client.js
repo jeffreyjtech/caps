@@ -16,7 +16,7 @@ class MessageClient {
   }
 
   publish(event, payload) {
-    this.socket.emit(event, { ...payload, queueId: this.queueId });
+    this.socket.emit(event, { ...payload, eventName: event, queueId: this.queueId });
   }
 
   subscribe(event, callback) {
