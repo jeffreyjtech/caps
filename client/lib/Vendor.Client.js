@@ -2,8 +2,6 @@
 
 // Since the two vendors had identical code, I created an extension of Client
 
-const Chance = require('chance');
-const chance = new Chance();
 const crypto = require('crypto');
 
 const Client = require('./Client');
@@ -14,13 +12,11 @@ class VendorClient extends Client {
     this.vendorId = vendorId;
   }
 
-  publishOrder() {
+  publishOrder(order) {
     super.publish('PICKUP', {
+      ...order,
       messageId: crypto.randomUUID(),
       store: this.vendorId,
-      orderID: crypto.randomUUID(),
-      customer: chance.name(),
-      address: chance.address(),
     });
   }
 

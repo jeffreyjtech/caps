@@ -1,15 +1,26 @@
 'use strict';
 
+const Chance = require('chance');
+const chance = Chance();
+
 const VendorClient = require('./lib/Vendor.Client');
 
 const acmeVendor = new VendorClient('acme-widgets');
 
-acmeVendor.publishOrder();
+acmeVendor.publishOrder({
+  orderID: crypto.randomUUID(),
+  customer: chance.name(),
+  address: chance.address(),
+});
 acmeVendor.getStoredDeliveries();
 acmeVendor.subscribeDeliveries();
 
 const flowersVendor = new VendorClient('1-800-flowers');
 
-flowersVendor.publishOrder();
+flowersVendor.publishOrder({
+  orderID: crypto.randomUUID(),
+  customer: chance.name(),
+  address: chance.address(),
+});
 flowersVendor.getStoredDeliveries();
 flowersVendor.subscribeDeliveries();
