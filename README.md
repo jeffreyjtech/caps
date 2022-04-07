@@ -8,7 +8,7 @@ This application has no outward features or routes. It currently has no function
 
 ## UML
 
-![Lab 12 UML diagram](./assets/lab-12-uml.jpg)
+![Lab 13 UML diagram](./assets/lab-13-uml.jpg)
 
 ## Installation
 
@@ -34,3 +34,7 @@ As stated in the overview, this application has no outward features or routes, a
 ### Lab 11
 
 ![Lab 11 UML diagram](./assets/lab-11-uml.jpg)
+
+### Lab 12
+
+![Lab 12 UML diagram](./assets/lab-12-uml.jpg)
