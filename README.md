@@ -2,7 +2,7 @@
 
 A real-time service that allows for vendors, such as flower shops or restaurants, to alert a system of a package needing to be delivered, for drivers to instantly see what’s in their pickup queue, and then to alert the vendors as to the state of the deliveries (in transit, and then delivered).
 
-This application has no outward features or routes. It currently has no function when deployed.
+As of Lab 13, this repo can almost be used to create a client-server application. It now uses a queue for storing events when the recipient is disconnected.
 
 [**Deployed API**](https://jjtech-caps.herokuapp.com/)
 
@@ -27,7 +27,7 @@ After installation, run `npm start`.
 
 ## Features / Routes
 
-As stated in the overview, this application has no outward features or routes, and it has no function when deployed.
+As stated in the overview this repo can almost be used to create a client-server application, but not quite. More work is required to ensure that both client and server could be deployed and can be configured to use real endpoints with real URLs.
 
 ## Old UML Diagrams
 
