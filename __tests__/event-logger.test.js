@@ -7,8 +7,8 @@ const addLogger = require('../server/event-logger.js');
 const socket = {
   onAny: jest.fn(),
 };
-// console.log = jest.fn();
-jest.spyOn(console, 'log');
+console.log = jest.fn();
+// jest.spyOn(console, 'log');
 
 describe('Testing event logger', () => {
 

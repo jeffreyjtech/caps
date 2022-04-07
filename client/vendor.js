@@ -7,7 +7,11 @@ const crypto = require('crypto');
 const { io } = require('socket.io-client');
 const socket = io('http://localhost:3000/caps');
 
-let pickupEmitter = (socket) => (storeName) => {
+let emitJoin = (socket) => {
+  socket.emit('JOIN', randomStoreName);
+};
+
+let emitPickup = (socket, storeName) => {
   let newOrderPayload = {
     store: storeName,
     orderID: crypto.randomUUID(),
@@ -17,18 +21,21 @@ let pickupEmitter = (socket) => (storeName) => {
   socket.emit('PICKUP', newOrderPayload);  
 };
 
-let deliveredListener = (payload) => {
-  console.log('Thank you', payload.customer);
+let handleDelivered = (socket) => {
+  socket.on('DELIVERED',  (payload) => {
+    console.log('Thank you', payload.customer);
+  });
   if(process.env.NODE_ENV !== 'test') process.exit();
 };
 
 let randomStoreName = chance.company();
 
-socket.emit('JOIN', randomStoreName);
-pickupEmitter(socket)(randomStoreName);
-socket.on('DELIVERED', deliveredListener);
+emitJoin(socket);
+emitPickup(socket, randomStoreName);
+handleDelivered(socket);
 
 module.exports = {
-  pickupEmitter,
-  deliveredListener,
+  emitJoin,
+  emitPickup,
+  handleDelivered,
 };
