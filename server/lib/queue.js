@@ -23,6 +23,10 @@ class Queue {
     return value;
   }
 
+  readAllValues() {
+    return Object.values(this.data);
+  }
+
   hasKey(key) {
     return Boolean(this.data[key]);
   }
@@ -31,7 +35,8 @@ class Queue {
     if (this.data[key]) {
       return this.data[key];
     } else {
-      return this.create(key, value);
+      this.data[key] = value;
+      return this.data[key];
     }
   }
 }
