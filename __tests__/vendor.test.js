@@ -11,6 +11,11 @@ const socket = {
   emit: jest.fn(),
   on: jest.fn(),
 };
+jest.mock('socket.io-client', () => {
+  return {
+    io: jest.fn(() => ({ emit: jest.fn(), on: jest.fn() })),
+  };
+});
 console.log = jest.fn();
 
 describe('Testing vendor client app', () => {
