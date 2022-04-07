@@ -15,10 +15,7 @@ vendorClient.publish('PICKUP', {
   address: chance.address(),
 });
 
-vendorClient.publish('get-all', (payload) => {
-  console.log('Fetching events from server');
-  vendorClient.publish('received', payload);
-});
+vendorClient.publish('get-all', { eventName: 'DELIVERED', queueId: '1-800-flowers' });
 
 vendorClient.subscribe('DELIVERED', (payload) => {
   console.log('Thank you', payload.customer);
