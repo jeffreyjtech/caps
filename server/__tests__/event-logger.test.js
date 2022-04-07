@@ -1,7 +1,6 @@
 'use strict';
 
 const addLogger = require('../event-logger.js');
-// const eventPool = require('../server/event-pool');
 
 // Mock objects and spy functions
 const socket = {
@@ -12,7 +11,7 @@ console.log = jest.fn();
 
 describe('Testing event logger', () => {
 
-  test('Checking logger logs an event with eventName and payload', () => {
+  test('Checking that logger has an onAny() callback which calls console.log', () => {
     let testPayload = {
       nothing: 'in-particular',
     };
@@ -30,6 +29,5 @@ describe('Testing event logger', () => {
     // Then we execute the callback to see that it calls console.log in some capacity
     loggerCallback(testEventName, testPayload);
     expect(console.log).toBeCalled();
-    // Finally we test that 'PICKUP' was also among the arguments
   });
 });
