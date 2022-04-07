@@ -1,6 +1,6 @@
 'use strict';
 
-const VendorClient = require('./lib/VendorClient');
+const VendorClient = require('./lib/Vendor.Client');
 
 const acmeVendor = new VendorClient('acme-widgets');
 

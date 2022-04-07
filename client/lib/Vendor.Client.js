@@ -1,5 +1,7 @@
 'use strict';
 
+// Since the two vendors had identical code, I created an extension of Client
+
 const Chance = require('chance');
 const chance = new Chance();
 const crypto = require('crypto');
