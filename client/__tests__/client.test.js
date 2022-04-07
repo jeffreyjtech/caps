@@ -17,11 +17,32 @@ jest.mock('socket.io-client', () => {
 
 describe('Testing the message client module', () => {
   let testClient;
+  let testQueueId = 'test';
+  testClient = new Client(testQueueId);
 
   test('Should call socket functions on instantiation', () => {
-    testClient = new Client('test');
     expect(io).toHaveBeenCalledWith(expect.anything());
     expect(testClient.socket.emit).toHaveBeenCalledWith('join', { queueId: 'test' });
-    expect(testClient.socket.emit).toBeCalled();
+    expect(testClient.socket.on).toBeCalled();
+  });
+
+  test('publish() method calls socket.emit() with correct arguments', () => {
+    testClient.publish('testEvent', { text: 'testPayload' });
+  
+    const testerObject = { 
+      text: 'testPayload',
+      queueId: testQueueId,
+      eventName: 'testEvent',
+    };
+
+    expect(testClient.socket.emit)
+      .toHaveBeenCalledWith('testEvent', expect.objectContaining(testerObject));
+  });
+
+  test('subscribe() method calls socket.on() with correct arguments', () => {
+    let testCallback = () => console.log('Testing 1 2 3');
+    testClient.subscribe('testEvent', testCallback);
+
+    expect(testClient.socket.on).toHaveBeenCalledWith('testEvent', testCallback);
   });
 });

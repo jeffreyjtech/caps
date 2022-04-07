@@ -26,22 +26,24 @@ caps.on('connection', socket => {
 
   socket.on('PICKUP', (payload) => {
     console.log('Relaying/storing PICKUP');
-
+    // Since the driver wants to see all PICKUPs, we'll create/grab the driver queue
     let eventQueue = globalQueue.createIfNotExists('driver', new Queue());
-
+    // Store the payload, using the messageId as a key
     eventQueue.create(payload.messageId, payload);
-
+    // Now emit the pickup to the driver room
     socket.to('driver').emit('PICKUP', payload);
   });
 
   socket.on('DELIVERED', (payload) => {
     console.log('Relaying/storing DELIVERED', payload.store);
-
+    // THANKFULLY the queueId is also the store property on the payload
+    // The driver Client overwrites the queueId automatically with 'driver'
+    // Using payload.store puts the DELIVERED event into the correct vendorQueue
     let eventQueue = globalQueue.createIfNotExists(payload.store, new Queue());
-
+    // Store the payload
     eventQueue.create(payload.messageId, payload);
-
-    socket.to(payload.queueId).emit('DELIVERED', payload);
+    // Emit the payload to the correct vendor's room
+    socket.to(payload.store).emit('DELIVERED', payload);
   });
 
   socket.on('received', (payload) => {
