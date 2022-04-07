@@ -2,6 +2,7 @@
 
 const Chance = require('chance');
 const chance = Chance();
+const crypto = require('crypto');
 
 const VendorClient = require('./lib/Vendor.Client');
 
