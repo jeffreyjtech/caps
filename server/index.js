@@ -2,6 +2,7 @@
 
 const { Server } = require('socket.io');
 
+require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 const server = new Server(PORT);
