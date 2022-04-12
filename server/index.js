@@ -72,4 +72,4 @@ caps.on('connection', socket => {
   });
 });
 
-console.log('caps.on() executed, server should be up');
+console.log('caps.on() executed, server should be up on PORT:', PORT);
