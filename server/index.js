@@ -2,6 +2,10 @@
 
 const { Server } = require('socket.io');
 
+if(!process.env) {
+  require('dotenv').config();
+}
+
 const PORT = process.env.PORT || 3000;
 
 const server = new Server(PORT);
@@ -71,4 +75,4 @@ caps.on('connection', socket => {
   });
 });
 
-console.log('caps.on() executed, server should be up');
+console.log('caps.on() executed, server should be up on PORT:', PORT);

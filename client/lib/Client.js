@@ -4,6 +4,7 @@
 // On instantiation, the new MessageClient will emit a 'join' event.
 // The server app will join the new Client to a room named after the queueId upon receipt of the 'join' event.
 
+require('dotenv').config();
 const { io } = require('socket.io-client');
 const SOCKET_URL = process.env.SOCKET_URL || 'http://localhost:3000/caps';
 
