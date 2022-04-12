@@ -19,14 +19,15 @@ As of Lab 16, you can install the client applications to simulate delivery picku
 1. Clone from this repo `git clone https://github.com/jeffreyjtech/caps.git`
 2. `cd` into `caps/server`
 3. Run `npm install`
-4. Optionally, create an .env file with variable `PORT` to assign your preferred port number. The default `PORT` is `3000`.
+4. Optionally, create an .env file with `PORT=<!--my favorite port number-->`
+    - If not specified, the server will use port 3000.
 
 ### Client Installation
 
 1. Clone from this repo `git clone https://github.com/jeffreyjtech/caps.git`
 2. `cd` into `caps/client`
 3. Run `npm install`
-4. Optionally, create an env file with `SOCKET_URL` assigned to the intended server URL.
+4. Optionally, create an env file with `SOCKET_URL=<!--intended server URL-->`.
     - The two deployed server URLs are
       - `http://capsbeanstalkgui-env.eba-mxgvpqyg.us-west-2.elasticbeanstalk.com/caps`
       - `http://caps-beanstalk-cli-env.eba-caumpsuf.us-west-2.elasticbeanstalk.com/caps`
